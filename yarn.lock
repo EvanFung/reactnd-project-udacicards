@@ -78,6 +78,12 @@
     lodash "^4.17.4"
     react-native-vector-icons "4.5.0"
 
+"@rematch/core@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@rematch/core/-/core-0.5.3.tgz#83a2dbe7aeec404fb58a6308ad0efe8433319fba"
+  dependencies:
+    redux "^3.7.2"
+
 "@segment/loosely-validate-event@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@segment/loosely-validate-event/-/loosely-validate-event-1.1.2.tgz#d77840999e3f7e43e74b3b0d43391c1526f793b8"
