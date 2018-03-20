@@ -1,0 +1,115 @@
+{
+  "React": {
+    "title": "React",
+    "questions": [
+      {
+        "question": "What is React?",
+        "answers": [
+          {
+            "text": "Food",
+            "isTrue": false
+          },
+          {
+            "text": "Shoes",
+            "isTrue": false
+          },
+          {
+            "text": "A javascript library",
+            "isTrue": true
+          }
+        ]
+      },
+      {
+        "question": "Where do you make Ajax requests in React?",
+        "answers": [
+          {
+            "text": "ComponentDidMount life cycle event",
+            "isTrue": true
+          },
+          {
+            "text": "ComponentWillMount life cycle event",
+            "isTrue": false
+          },
+          {
+            "text": "ComponentWillUpdate life cycle event",
+            "isTrue": false
+          }
+        ]
+      },
+      {
+        "question": "What is a react.js in MVC",
+        "answers": [
+          {
+            "text": "Controller",
+            "isTrue": false
+          },
+          {
+            "text": "Middleware",
+            "isTrue": false
+          },
+          {
+            "text": "View",
+            "isTrue": true
+          }
+        ]
+      }
+    ]
+  },
+  "Nerd": {
+    "title": "Nerd Test",
+    "questions": [
+      {
+        "question":
+          "Where do you take someone you're interested in on a romantic date?",
+        "answers": [
+          {
+            "text": "Dinner and movie.Classic",
+            "isTrue": false
+          },
+          {
+            "text": "An anime convention",
+            "isTrue": false
+          },
+          {
+            "text": "A picnic a few hours before sunrise",
+            "isTrue": true
+          }
+        ]
+      },
+      {
+        "question": "In WoW, what class are you",
+        "answers": [
+          {
+            "text": "Shaman",
+            "isTrue": false
+          },
+          {
+            "text": "Rogue",
+            "isTrue": false
+          },
+          {
+            "text": "Wow, I have no idea what you're talking about",
+            "isTrue": true
+          }
+        ]
+      },
+      {
+        "question": "Which console would you prefer to play with friends?",
+        "answers": [
+          {
+            "text": "Microsoft X-box",
+            "isTrue": false
+          },
+          {
+            "text": "Nintendo 64",
+            "isTrue": false
+          },
+          {
+            "text": "Sony PS4",
+            "isTrue": true
+          }
+        ]
+      }
+    ]
+  }
+}
