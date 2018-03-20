@@ -11,10 +11,10 @@
       "icon":"./res/icons/icon-45.png"
     },
     "ios": {
-      "bundleIdentifier": "org.evan-fung.udacicards"
+      "bundleIdentifier": "org.evanfung.udacicards"
     },
     "android": {
-      "package": "org.evan-fung.udacicards"
+      "package": "org.evanfung.udacicards"
     }
   }
 }
