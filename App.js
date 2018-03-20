@@ -1,3 +1,4 @@
+import './src/main/ReactotronConfig'
 import React from "react"
 import App from "./src/main/App"
 
