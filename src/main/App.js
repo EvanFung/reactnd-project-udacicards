@@ -15,6 +15,7 @@ const store = init({
 })
 export default class App extends React.Component {
   render() {
+    Reactotron.log('hello world')
     return (
       <Provider store={store}>
         <View style={styles.container}>

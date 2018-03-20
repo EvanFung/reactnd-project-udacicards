@@ -28,6 +28,7 @@
     "reactotron-react-native": "^1.14.0",
     "reactotron-redux": "^1.13.0",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "remote-redux-devtools": "^0.5.12"
   }
 }
