@@ -9,7 +9,8 @@ import ReactotronConfig from './ReactotronConfig'
 const store = init({
   models,
   redux: {
-    createStore: Reactotron.createStore,//hook up the devtool store subscription
+    //hook up the devtool store subscription
+    createStore: Reactotron.createStore,
   }
 })
 export default class App extends React.Component {
@@ -18,9 +19,6 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View style={styles.container}>
           <DeckList />
-          <Text>Open up App.js to start working on your app!</Text>
-          <Text>Changes you make will automatically reload.</Text>
-          <Text>Shake your phone to open the developer menu.</Text>
         </View>
       </Provider>
     )
