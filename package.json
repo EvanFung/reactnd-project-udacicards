@@ -29,6 +29,7 @@
     "reactotron-redux": "^1.13.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "remote-redux-devtools": "^0.5.12"
+    "remote-redux-devtools": "^0.5.12",
+    "uuid": "^3.2.1"
   }
 }

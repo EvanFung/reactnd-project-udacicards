@@ -6,6 +6,7 @@ import { Provider } from "react-redux"
 import thunk from 'redux-thunk'
 import Reactotron from "reactotron-react-native"
 import DeckList from "./components/DeckList"
+import DeckFrom from './components/DeckForm'
 import ReactotronConfig from './ReactotronConfig'
 import { AsyncStorage } from "react-native";
 const store = init({
@@ -21,7 +22,8 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <DeckList />
+          {/* <DeckList /> */}
+          <DeckFrom />
         </View>
       </Provider>
     )
