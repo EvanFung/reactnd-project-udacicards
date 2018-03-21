@@ -3,7 +3,6 @@ import { connect } from "react-redux"
 import { View, Text, TouchableOpacity } from "react-native"
 class DeckList extends React.Component {
   componentWillMount() {
-    console.log(`fetching data asynclly`)
     this.props.fetchDeckListAsync();
   }
   render() {

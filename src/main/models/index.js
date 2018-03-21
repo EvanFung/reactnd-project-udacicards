@@ -1,5 +1,6 @@
 import mockDecks from "../../../resources/data/decks.json"
 import { AsyncStorage } from "react-native"
+import { generateRandomId } from "../utils/utils"
 const DECKS_STORAGE_KEY = "UdaciCards::DeckList"
 
 export const decks = {
@@ -10,10 +11,16 @@ export const decks = {
         ...state,
         ...data
       }
+    },
+    addNewDeck(state, data) {
+        return {
+            ...state,
+            ...data
+        }
     }
   },
   effects: {
-    fetchDeckListAsync() {
+    async fetchDeckListAsync() {
       AsyncStorage.getItem(DECKS_STORAGE_KEY).then(data => {
         if (!data) {
           console.log(
@@ -23,8 +30,19 @@ export const decks = {
           AsyncStorage.setItem(DECKS_STORAGE_KEY, initialData)
           this.fetchDeckList(mockDecks)
         }
+        console.log(JSON.parse(data))
         this.fetchDeckList(JSON.parse(data))
       })
+    },
+    async addNewDeckAsync(title) {
+      const deck = {
+        [generateRandomId()]: {
+          title,
+          questions: []
+        }
+      }
+      AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck))
+      this.addNewDeck(deck);
     }
   }
 }

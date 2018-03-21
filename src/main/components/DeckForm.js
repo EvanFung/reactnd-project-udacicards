@@ -6,29 +6,35 @@ class DeckFrom extends React.Component {
   state = {
     title: ""
   }
+  onSubmitDeck = () => {
+    console.log(`Adding new deck with ${this.state.title}`)
+    if (this.state.title !== "") {
+      this.props.addNewDeck(this.state.title).then(() => {
+        this.setState({ title: "" })
+      })
+    }
+  }
   render() {
+    const { addNewDeck } = this.props
     return (
       <View>
-        <TouchableOpacity>
-          <Text>What is the title of your new deck?</Text>
-          <TextInput
-            placeholder="Deck title"
-            onChangeText={title => this.setState({ title })}
-            value={this.state.title}
-          />
+        <Text>What is the title of your new deck?</Text>
+        <TextInput
+          placeholder="Deck title"
+          onChangeText={title => this.setState({ title })}
+          value={this.state.title}
+        />
+        <TouchableOpacity onPress={this.onSubmitDeck}>
           <Text>create deck</Text>
         </TouchableOpacity>
       </View>
     )
   }
 }
-
-const mapState = state => {
+const mapDipatch = dispatch => {
   return {
-    decks: state.decks
+    addNewDeck: title => dispatch.decks.addNewDeckAsync(title)
   }
 }
 
-const mapDipatch = dispatch => {}
-
-export default connect()(DeckFrom)
+export default connect(null, mapDipatch)(DeckFrom)
