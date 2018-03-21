@@ -30,18 +30,19 @@ export const decks = {
           AsyncStorage.setItem(DECKS_STORAGE_KEY, initialData)
           this.fetchDeckList(mockDecks)
         }
-        console.log(JSON.parse(data))
         this.fetchDeckList(JSON.parse(data))
       })
     },
     async addNewDeckAsync(title) {
       const deck = {
-        [generateRandomId()]: {
+        [title]: {
           title,
           questions: []
         }
       }
+      //update db
       AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck))
+      //update store
       this.addNewDeck(deck);
     }
   }

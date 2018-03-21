@@ -3,12 +3,13 @@ import { StyleSheet, Text, View } from "react-native"
 import { init } from "@rematch/core"
 import * as models from "./models"
 import { Provider } from "react-redux"
-import thunk from 'redux-thunk'
+import thunk from "redux-thunk"
 import Reactotron from "reactotron-react-native"
 import DeckList from "./components/DeckList"
-import DeckFrom from './components/DeckForm'
-import ReactotronConfig from './ReactotronConfig'
-import { AsyncStorage } from "react-native";
+import DeckFrom from "./components/DeckForm"
+import ReactotronConfig from "./ReactotronConfig"
+import { AsyncStorage } from "react-native"
+import {TabNavigator, StackNavigator} from 'react-navigation'
 const store = init({
   models,
   redux: {

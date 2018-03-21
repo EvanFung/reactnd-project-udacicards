@@ -7,15 +7,24 @@ class DeckFrom extends React.Component {
     title: ""
   }
   onSubmitDeck = () => {
-    console.log(`Adding new deck with ${this.state.title}`)
-    if (this.state.title !== "") {
-      this.props.addNewDeck(this.state.title).then(() => {
-        this.setState({ title: "" })
-      })
+    const {title} = this.state
+    console.log(`Adding new deck with ${title}`)
+    if (!title) {
+        console.log(`You need to specify a name for the deck`)
+        return
     }
+
+    if(this.props.decks[title]) {
+        console.log(`A deck with this name already exists!`)
+        return
+    }
+
+    this.props.addNewDeck(title).then(() => {
+        this.setState({ title: "" })
+        console.log(`A new deck created.`)
+      })
   }
   render() {
-    const { addNewDeck } = this.props
     return (
       <View>
         <Text>What is the title of your new deck?</Text>
@@ -31,10 +40,17 @@ class DeckFrom extends React.Component {
     )
   }
 }
+
+const mapState = state => {
+    return {
+      decks: state.decks
+    }
+}
+
 const mapDipatch = dispatch => {
   return {
     addNewDeck: title => dispatch.decks.addNewDeckAsync(title)
   }
 }
 
-export default connect(null, mapDipatch)(DeckFrom)
+export default connect(mapState, mapDipatch)(DeckFrom)

@@ -6,7 +6,6 @@ export default Reactotron.configure({
   name: "Udacicards"
 })
   .use(asyncStorage())
-  .use(networking())
   .use(reactotronRedux())
   // add other devtools here
   .connect()
