@@ -15,8 +15,9 @@ import {
   MaterialCommunityIcons,
   Foundation
 } from "@expo/vector-icons"
-import { purple, white } from "./utils/colors"
+import { purple, white, green } from "./utils/colors"
 import DeckForm from "./components/DeckForm"
+import DeckDetails from './components/DeckDetails'
 import CustomStatusBar from "./components/CustomStatusBar"
 const store = init({
   models,
@@ -71,13 +72,27 @@ const tabSettings = {
   }
 }
 const Tabs = TabNavigator(tabsItem, tabSettings)
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  DeckDetails: {
+    screen: DeckDetails,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  }
+})
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
           <CustomStatusBar />
-          <Tabs />
+          <MainNavigator />
         </View>
       </Provider>
     )

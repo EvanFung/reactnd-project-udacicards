@@ -17,15 +17,9 @@ class DeckList extends React.Component {
     const { decks } = this.props
     return (
       <View style={styles.container}>
-        {/* {Object.keys(decks).map((key, index) => {
-          const deck = decks[key]
-          return (
-            <DeckListItem deck={deck} key={key} />
-          )
-        })} */}
         <FlatList
           data={Object.keys(decks)}
-          renderItem={({ item }) => <DeckListItem deck={decks[item]} />}
+          renderItem={({ item }) => <DeckListItem deck={decks[item]} navigation={this.props.navigation} />}
           keyExtractor={item => item}
         />
       </View>

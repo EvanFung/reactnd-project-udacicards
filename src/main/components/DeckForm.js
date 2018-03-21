@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
-  AlertIOS
+  AlertIOS,
+  KeyboardAvoidingView
 } from "react-native"
 import { white } from "../utils/colors";
 class DeckFrom extends React.Component {
@@ -35,7 +36,7 @@ class DeckFrom extends React.Component {
   }
   render() {
     return (
-      <View style={styles.center}>
+      <KeyboardAvoidingView behavior="padding" style={styles.center}>
         <Text>What is the title of your new deck?</Text>
         <TextInput
           placeholder="Deck title"
@@ -45,7 +46,7 @@ class DeckFrom extends React.Component {
         <TouchableOpacity onPress={this.onSubmitDeck}>
           <Text>create deck</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
