@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
-import { View, Text, TouchableOpacity } from "react-native"
+import { View, Text, TouchableOpacity,StyleSheet } from "react-native"
+import { white } from "../utils/colors";
 class DeckList extends React.Component {
   componentWillMount() {
     this.props.fetchDeckListAsync();
@@ -8,7 +9,7 @@ class DeckList extends React.Component {
   render() {
     const { decks } = this.props
     return (
-      <View>
+      <View style={styles.container}>
         {Object.keys(decks).map((key, index) => {
           const deck = decks[key]
           return (
@@ -34,5 +35,16 @@ const mapState = state => {
 
 const mapDispatch = dispatch => ({
   fetchDeckListAsync: () => dispatch.decks.fetchDeckListAsync()
+})
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: white,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 30,
+    marginRight:30
+  }
 })
 export default connect(mapState,mapDispatch)(DeckList)

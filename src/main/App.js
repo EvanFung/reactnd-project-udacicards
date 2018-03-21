@@ -31,7 +31,7 @@ const tabsItem = {
     navigationOptions: {
       tabBarLabel: "DeckList",
       tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="ios-bookmarks" size={30} color={tintColor} />
+        <MaterialCommunityIcons name="library" size={30} color={tintColor} />
       )
     }
   },
@@ -40,7 +40,7 @@ const tabsItem = {
     navigationOptions: {
       tabBarLabel: "DeckForm",
       tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="ios-bookmarks" size={30} color={tintColor} />
+        <MaterialCommunityIcons name="library-plus" size={30} color={tintColor} />
       )
     }
   }

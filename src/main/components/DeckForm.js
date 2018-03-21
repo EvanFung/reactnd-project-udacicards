@@ -1,32 +1,39 @@
 import React from "react"
 import { connect } from "react-redux"
-import { View, Text, TouchableOpacity, TextInput } from "react-native"
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet
+} from "react-native"
+import { white } from "../utils/colors";
 
 class DeckFrom extends React.Component {
   state = {
     title: ""
   }
   onSubmitDeck = () => {
-    const {title} = this.state
+    const { title } = this.state
     console.log(`Adding new deck with ${title}`)
     if (!title) {
-        console.log(`You need to specify a name for the deck`)
-        return
+      console.log(`You need to specify a name for the deck`)
+      return
     }
 
-    if(this.props.decks[title]) {
-        console.log(`A deck with this name already exists!`)
-        return
+    if (this.props.decks[title]) {
+      console.log(`A deck with this name already exists!`)
+      return
     }
 
     this.props.addNewDeck(title).then(() => {
-        this.setState({ title: "" })
-        console.log(`A new deck created.`)
-      })
+      this.setState({ title: "" })
+      console.log(`A new deck created.`)
+    })
   }
   render() {
     return (
-      <View>
+      <View style={styles.center}>
         <Text>What is the title of your new deck?</Text>
         <TextInput
           placeholder="Deck title"
@@ -42,9 +49,9 @@ class DeckFrom extends React.Component {
 }
 
 const mapState = state => {
-    return {
-      decks: state.decks
-    }
+  return {
+    decks: state.decks
+  }
 }
 
 const mapDipatch = dispatch => {
@@ -52,5 +59,14 @@ const mapDipatch = dispatch => {
     addNewDeck: title => dispatch.decks.addNewDeckAsync(title)
   }
 }
-
+const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    backgroundColor: white,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 30,
+    marginRight: 30
+  }
+})
 export default connect(mapState, mapDipatch)(DeckFrom)
