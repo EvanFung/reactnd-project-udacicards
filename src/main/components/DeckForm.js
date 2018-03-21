@@ -5,10 +5,10 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  StyleSheet
+  StyleSheet,
+  AlertIOS
 } from "react-native"
 import { white } from "../utils/colors";
-
 class DeckFrom extends React.Component {
   state = {
     title: ""
@@ -18,6 +18,7 @@ class DeckFrom extends React.Component {
     console.log(`Adding new deck with ${title}`)
     if (!title) {
       console.log(`You need to specify a name for the deck`)
+    //   AlertIOS.alert('Enter a value',null); it works when dont using expo.
       return
     }
 
@@ -28,6 +29,7 @@ class DeckFrom extends React.Component {
 
     this.props.addNewDeck(title).then(() => {
       this.setState({ title: "" })
+      this.props.navigation.navigate('DeckList')
       console.log(`A new deck created.`)
     })
   }
