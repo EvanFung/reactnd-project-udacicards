@@ -16,7 +16,8 @@ import {
   Foundation
 } from "@expo/vector-icons"
 import { purple, white } from "./utils/colors"
-import DeckForm from "./components/DeckForm";
+import DeckForm from "./components/DeckForm"
+import CustomStatusBar from "./components/CustomStatusBar"
 const store = init({
   models,
   redux: {
@@ -40,7 +41,11 @@ const tabsItem = {
     navigationOptions: {
       tabBarLabel: "DeckForm",
       tabBarIcon: ({ tintColor }) => (
-        <MaterialCommunityIcons name="library-plus" size={30} color={tintColor} />
+        <MaterialCommunityIcons
+          name="library-plus"
+          size={30}
+          color={tintColor}
+        />
       )
     }
   }
@@ -70,7 +75,8 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
+          <CustomStatusBar />
           <Tabs />
         </View>
       </Provider>
