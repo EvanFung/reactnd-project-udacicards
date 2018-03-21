@@ -2,6 +2,10 @@ import React from "react"
 import { connect } from "react-redux"
 import { View, Text, TouchableOpacity } from "react-native"
 class DeckList extends React.Component {
+  componentWillMount() {
+    console.log(`fetching data asynclly`)
+    this.props.fetchDeckListAsync();
+  }
   render() {
     const { decks } = this.props
     return (
@@ -28,4 +32,8 @@ const mapState = state => {
     decks: state.decks
   }
 }
-export default connect(mapState)(DeckList)
+
+const mapDispatch = dispatch => ({
+  fetchDeckListAsync: () => dispatch.decks.fetchDeckListAsync()
+})
+export default connect(mapState,mapDispatch)(DeckList)
