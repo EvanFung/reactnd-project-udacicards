@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
-
+import Button from './TouchableButton'
 class DeckDetails extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state
@@ -15,9 +15,9 @@ class DeckDetails extends React.Component {
       <View>
         <Text>deck details page</Text>
         <View>
-          <TouchableOpacity onPress={() => navigation.navigate('CreateCard',{deckId: deck.title})}>
-            <Text>ADD CARD</Text>
-          </TouchableOpacity>
+          <Button onPress={() => navigation.navigate('CreateCard',{deckId: deck.title}) }>
+            ADD CARD
+          </Button>
         </View>
       </View>
     )
