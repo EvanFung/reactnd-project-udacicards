@@ -62,7 +62,6 @@ export const decks = {
           ]
         }
       }
-      console.log(newDeck)
       // //update db
       AsyncStorage.mergeItem(DECKS_STORAGE_KEY,JSON.stringify(newDeck))
       // //update store

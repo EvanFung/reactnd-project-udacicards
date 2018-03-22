@@ -20,6 +20,7 @@ import DeckForm from "./components/DeckForm"
 import DeckDetails from "./components/DeckDetails"
 import CustomStatusBar from "./components/CustomStatusBar"
 import CardForm from "./components/CardForm"
+import DeckQuiz from "./components/DeckQuiz"
 const store = init({
   models,
   redux: {
@@ -97,10 +98,20 @@ const MainNavigator = StackNavigator({
         backgroundColor: purple
       }
     }
+  },
+  DeckQuiz: {
+    screen: DeckQuiz,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
   }
 })
 export default class App extends React.Component {
   render() {
+    // AsyncStorage.clear(); for test.
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
@@ -111,12 +122,3 @@ export default class App extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-})

@@ -2,7 +2,7 @@ import React from "react"
 import { View, Text, TextInput, TouchableOpacity } from "react-native"
 import { connect } from "react-redux"
 import { Ionicons } from "@expo/vector-icons"
-import Button from './TouchableButton'
+import Button from "./TouchableButton"
 class CardForm extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { deckId } = navigation.state.params
@@ -30,19 +30,20 @@ class CardForm extends React.Component {
       }))
     }
     const item = {
-        deck: this.props.deck,
-        card: card
+      deck: this.props.deck,
+      card: card
     }
     //if all the things go well, emmit an add card action
-    this.props.addCardToDeck(item)
-    //Go back to last page
-    this.props.navigation.goBack();
-    //TODO: Change the console to alertIOS later.
-    console.log(`New card added to deck`)
+    this.props.addCardToDeck(item).then(() => {
+      //Go back to last page
+      this.props.navigation.goBack()
+      //TODO: Change the console to alertIOS later.
+      console.log(`New card added to deck`)
+    })
   }
 
   render() {
-    const { navigation,deck } = this.props
+    const { navigation, deck } = this.props
     const { deckId } = navigation.state.params
 
     return (
@@ -69,8 +70,8 @@ class CardForm extends React.Component {
                 <Ionicons
                   name={
                     this.state.correctAnswer === index
-                      ? 'ios-radio-button-on'
-                      : 'ios-radio-button-off'
+                      ? "ios-radio-button-on"
+                      : "ios-radio-button-off"
                   }
                 />
               </TouchableOpacity>
@@ -89,8 +90,8 @@ function mapState(state, { navigation }) {
   }
 }
 const mapDispatch = dispatch => {
-    return {
-      addCardToDeck: (item) => dispatch.decks.addCardToDeckAsync(item)
-    }
+  return {
+    addCardToDeck: item => dispatch.decks.addCardToDeckAsync(item)
   }
-export default connect(mapState,mapDispatch)(CardForm)
+}
+export default connect(mapState, mapDispatch)(CardForm)
