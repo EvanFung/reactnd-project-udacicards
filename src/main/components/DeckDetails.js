@@ -1,21 +1,27 @@
 import React from "react"
 import { connect } from "react-redux"
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
-import Button from './TouchableButton'
+import Button from "./TouchableButton"
 class DeckDetails extends React.Component {
+  //override the default navigationOptions.
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state
     return {
       title: params ? `${params.deckId} details` : "A nesty details screen"
     }
   }
+
   render() {
-    const { deck,navigation } = this.props
+    const { deck, navigation } = this.props
     return (
       <View>
         <Text>deck details page</Text>
         <View>
-          <Button onPress={() => navigation.navigate('CreateCard',{deckId: deck.title}) }>
+          <Button
+            onPress={() =>
+              navigation.navigate("CreateCard", { deckId: deck.title })
+            }
+          >
             ADD CARD
           </Button>
         </View>

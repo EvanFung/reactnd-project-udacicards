@@ -75,7 +75,10 @@ const tabSettings = {
 const Tabs = TabNavigator(tabsItem, tabSettings)
 const MainNavigator = StackNavigator({
   Home: {
-    screen: Tabs
+    screen: Tabs,
+    navigationOptions: {
+      headerBackTitle: "Back"
+    }
   },
   DeckDetails: {
     screen: DeckDetails,

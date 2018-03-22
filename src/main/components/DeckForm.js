@@ -57,7 +57,7 @@ const mapState = state => {
   }
 }
 
-const mapDipatch = dispatch => {
+const mapDispatch = dispatch => {
   return {
     addNewDeck: title => dispatch.decks.addNewDeckAsync(title)
   }
@@ -72,4 +72,5 @@ const styles = StyleSheet.create({
     marginRight: 30
   }
 })
-export default connect(mapState, mapDipatch)(DeckFrom)
+
+export default connect(mapState, mapDispatch)(DeckFrom)
