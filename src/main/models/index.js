@@ -17,6 +17,12 @@ export const decks = {
             ...state,
             ...data
         }
+    },
+    addCardToDeck(state, data) {
+      return {
+        ...state,
+        ...data
+      }
     }
   },
   effects: {
@@ -44,6 +50,20 @@ export const decks = {
       AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck))
       //update store
       this.addNewDeck(deck);
+    },
+    async addCardToDeckAsync(deck, card) {
+      const newDeck = {
+        [deck.title]: {
+          questions: [
+            ...deck.questions,
+            card
+          ]
+        }
+      }
+      //update db
+      AsyncStorage.mergeItem(DECKS_STORAGE_KEY,JSON.stringify(newDeck))
+      //update store
+      this.addCardToDeck(newDeck)
     }
   }
 }
