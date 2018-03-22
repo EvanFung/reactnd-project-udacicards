@@ -17,8 +17,9 @@ import {
 } from "@expo/vector-icons"
 import { purple, white, green } from "./utils/colors"
 import DeckForm from "./components/DeckForm"
-import DeckDetails from './components/DeckDetails'
+import DeckDetails from "./components/DeckDetails"
 import CustomStatusBar from "./components/CustomStatusBar"
+import CardForm from "./components/CardForm"
 const store = init({
   models,
   redux: {
@@ -74,7 +75,7 @@ const tabSettings = {
 const Tabs = TabNavigator(tabsItem, tabSettings)
 const MainNavigator = StackNavigator({
   Home: {
-    screen: Tabs,
+    screen: Tabs
   },
   DeckDetails: {
     screen: DeckDetails,
@@ -84,10 +85,18 @@ const MainNavigator = StackNavigator({
         backgroundColor: purple
       }
     }
+  },
+  CreateCard: {
+    screen: CardForm,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
   }
 })
 export default class App extends React.Component {
-
   render() {
     return (
       <Provider store={store}>
