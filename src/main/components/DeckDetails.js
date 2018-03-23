@@ -10,7 +10,6 @@ class DeckDetails extends React.Component {
       title: params ? `${params.deckId} details` : "A nesty details screen"
     }
   }
-
   render() {
     const { deck, navigation } = this.props
     return (

@@ -5,10 +5,12 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  FlatList
+  FlatList,
+  DeviceEventEmitter
 } from "react-native"
 import { white } from "../utils/colors"
 import DeckListItem from "./DeckListItem"
+
 class DeckList extends React.Component {
   componentWillMount() {
     this.props.fetchDeckListAsync()

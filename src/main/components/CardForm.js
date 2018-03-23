@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native"
 import { connect } from "react-redux"
 import { Ionicons } from "@expo/vector-icons"
 import Button from "./TouchableButton"
+import Toast, { DURATION } from "react-native-easy-toast"
 class CardForm extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { deckId } = navigation.state.params
@@ -20,8 +21,20 @@ class CardForm extends React.Component {
     this.setState({ correctAnswer: index })
   }
 
+  validateCard = () => {
+    if (!question) {
+    }
+  }
+
   onSubmitCard = () => {
     //TODO:form validation
+
+    //The user has written a question ?
+
+    //The user has filled, at least , 2 of the possisble asnwers for the question.
+
+    //The user has chosen a non-empty answer field as the right answer.
+
     const card = {
       question: this.state.question,
       answers: this.state.answers.map((answer, index) => ({
@@ -38,6 +51,7 @@ class CardForm extends React.Component {
       //Go back to last page
       this.props.navigation.goBack()
       //TODO: Change the console to alertIOS later.
+      // this.refs.toast.show("New card added")
       console.log(`New card added to deck`)
     })
   }
@@ -47,7 +61,7 @@ class CardForm extends React.Component {
     const { deckId } = navigation.state.params
 
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Text>Write possible answer for your question at least 2</Text>
         <TextInput
           value={this.state.question}
@@ -79,6 +93,7 @@ class CardForm extends React.Component {
           ))}
           <Button onPress={this.onSubmitCard}>Add card</Button>
         </View>
+        <Toast ref="toast" />
       </View>
     )
   }

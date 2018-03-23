@@ -1,5 +1,11 @@
 import React from "react"
-import { StyleSheet, Text, View, Platform } from "react-native"
+import {
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  DeviceEventEmitter
+} from "react-native"
 import { init } from "@rematch/core"
 import * as models from "./models"
 import { Provider } from "react-redux"
@@ -15,12 +21,14 @@ import {
   MaterialCommunityIcons,
   Foundation
 } from "@expo/vector-icons"
-import { purple, white, green } from "./utils/colors"
+import { purple, white, green, gray } from "./utils/colors"
 import DeckForm from "./components/DeckForm"
 import DeckDetails from "./components/DeckDetails"
 import CustomStatusBar from "./components/CustomStatusBar"
 import CardForm from "./components/CardForm"
 import DeckQuiz from "./components/DeckQuiz"
+import Toast, { DURATION } from "react-native-easy-toast"
+
 const store = init({
   models,
   redux: {
@@ -110,6 +118,17 @@ const MainNavigator = StackNavigator({
   }
 })
 export default class App extends React.Component {
+  //set up a showToast listener so that we can globally emmit a toast action
+  componentDidMount() {
+    this.listener = DeviceEventEmitter.addListener("showToast", text => {
+      this.refs.toastWithStyle.show(text)
+    })
+  }
+  componentWillUnmount() {
+    if (this.listener) {
+      this.listener.remove()
+    }
+  }
   render() {
     // AsyncStorage.clear(); for test.
     return (
@@ -117,6 +136,16 @@ export default class App extends React.Component {
         <View style={{ flex: 1 }}>
           <CustomStatusBar />
           <MainNavigator />
+          <Toast
+            ref="toastWithStyle"
+            style={{ backgroundColor: white }}
+            textStyle={{
+              fontSize: 20,
+              color: gray,
+              fontWeight: "bold"
+            }}
+            position={"center"}
+          />
         </View>
       </Provider>
     )
