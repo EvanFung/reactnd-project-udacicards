@@ -1,8 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 import { View, Text, StyleSheet } from "react-native"
-import { getRandomInt } from "../utils/utils"
+import { getRandomInt,shuffleArray } from "../utils/utils"
 import Button from "./TouchableButton"
+import QuizResults from './QuizResults'
 const NUMBER_QUESTIONS = 10
 class DeckQuiz extends React.Component {
   state = {
@@ -62,8 +63,8 @@ class DeckQuiz extends React.Component {
     if (!currentCard) {
       return null
     }
-    if (cardCounter === NUMBER_QUESTIONS) {
-      return <Button onPress={this.initialQuiz}>GAME COMPLETED</Button>
+    if (cardCounter > NUMBER_QUESTIONS) {
+      return <QuizResults successRate={(score/NUMBER_QUESTIONS) * 100} />
     }
     return (
       <View>
