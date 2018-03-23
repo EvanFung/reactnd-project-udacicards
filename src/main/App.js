@@ -121,7 +121,7 @@ export default class App extends React.Component {
   //set up a showToast listener so that we can globally emmit a toast action
   componentDidMount() {
     this.listener = DeviceEventEmitter.addListener("showToast", text => {
-      this.refs.toastWithStyle.show(text)
+      this.refs.toastWithStyle.show(text,DURATION.LENGTH_LONG)
     })
   }
   componentWillUnmount() {
@@ -130,7 +130,7 @@ export default class App extends React.Component {
     }
   }
   render() {
-    // AsyncStorage.clear(); for test.
+    // AsyncStorage.clear(); 
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>

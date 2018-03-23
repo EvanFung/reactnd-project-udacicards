@@ -1,10 +1,17 @@
 import React from "react"
-import { View, Text, TextInput, TouchableOpacity } from "react-native"
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  DeviceEventEmitter
+} from "react-native"
 import { connect } from "react-redux"
 import { Ionicons } from "@expo/vector-icons"
 import Button from "./TouchableButton"
 import Toast, { DURATION } from "react-native-easy-toast"
-class CardForm extends React.Component {
+import ValidationComponent from "react-native-form-validator"
+class CardForm extends ValidationComponent {
   static navigationOptions = ({ navigation }) => {
     const { deckId } = navigation.state.params
     return {
@@ -14,6 +21,9 @@ class CardForm extends React.Component {
   state = {
     question: "",
     answers: ["", "", ""],
+    answer1: "",
+    answer2: "",
+    answer3: "",
     correctAnswer: 0
   }
 
@@ -21,19 +31,13 @@ class CardForm extends React.Component {
     this.setState({ correctAnswer: index })
   }
 
-  validateCard = () => {
-    if (!question) {
-    }
-  }
-
   onSubmitCard = () => {
-    //TODO:form validation
-
-    //The user has written a question ?
-
-    //The user has filled, at least , 2 of the possisble asnwers for the question.
-
-    //The user has chosen a non-empty answer field as the right answer.
+    this.validate({
+      question: { required: true },
+      answer1: { required: true },
+      answer2: { required: true },
+      answer3: { required: true }
+    })
 
     const card = {
       question: this.state.question,
@@ -46,12 +50,15 @@ class CardForm extends React.Component {
       deck: this.props.deck,
       card: card
     }
+
+    if (!this.isFormValid()) {
+      DeviceEventEmitter.emit("showToast", this.getErrorMessages())
+      return
+    }
     //if all the things go well, emmit an add card action
     this.props.addCardToDeck(item).then(() => {
       //Go back to last page
       this.props.navigation.goBack()
-      //TODO: Change the console to alertIOS later.
-      // this.refs.toast.show("New card added")
       console.log(`New card added to deck`)
     })
   }
@@ -61,9 +68,10 @@ class CardForm extends React.Component {
     const { deckId } = navigation.state.params
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Text>Write possible answer for your question at least 2</Text>
         <TextInput
+          ref="question"
           value={this.state.question}
           onChangeText={question => this.setState({ question })}
           placeholder={`Question`}
@@ -72,12 +80,16 @@ class CardForm extends React.Component {
           {this.state.answers.map((item, index) => (
             <View key={index}>
               <TextInput
+                ref={`answer${index + 1}`}
                 value={this.state.answers[index]}
                 placeholder={`Answer ${index + 1}`}
                 onChangeText={answer => {
                   const updateAnswers = this.state.answers
                   updateAnswers[index] = answer
-                  this.setState({ answers: updateAnswers })
+                  this.setState({
+                    answers: updateAnswers,
+                    [`answer${index + 1}`]: answer
+                  })
                 }}
               />
               <TouchableOpacity onPress={() => this.setCorrectAnswer(index)}>
