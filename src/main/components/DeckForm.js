@@ -7,10 +7,12 @@ import {
   TextInput,
   StyleSheet,
   AlertIOS,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  DeviceEventEmitter
 } from "react-native"
 import { white } from "../utils/colors";
-class DeckFrom extends React.Component {
+import ValidationComponent from "react-native-form-validator"
+class DeckFrom extends ValidationComponent {
   state = {
     title: ""
   }
@@ -19,19 +21,21 @@ class DeckFrom extends React.Component {
     console.log(`Adding new deck with ${title}`)
     if (!title) {
       console.log(`You need to specify a name for the deck`)
+      DeviceEventEmitter.emit("showToast", "You need to specify a name for the deck")
     //   AlertIOS.alert('Enter a value',null); it works when dont using expo.
       return
     }
 
     if (this.props.decks[title]) {
       console.log(`A deck with this name already exists!`)
+      DeviceEventEmitter.emit("showToast", "A deck with this name already exists!")
       return
     }
 
     this.props.addNewDeck(title).then(() => {
+      DeviceEventEmitter.emit("showToast", "Created a new deck!")
       this.setState({ title: "" })
       this.props.navigation.navigate('DeckList')
-      console.log(`A new deck created.`)
     })
   }
   render() {

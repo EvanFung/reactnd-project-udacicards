@@ -9,7 +9,6 @@ import {
 import { connect } from "react-redux"
 import { Ionicons } from "@expo/vector-icons"
 import Button from "./TouchableButton"
-import Toast, { DURATION } from "react-native-easy-toast"
 import ValidationComponent from "react-native-form-validator"
 class CardForm extends ValidationComponent {
   static navigationOptions = ({ navigation }) => {
@@ -33,10 +32,10 @@ class CardForm extends ValidationComponent {
 
   onSubmitCard = () => {
     this.validate({
-      question: { required: true },
-      answer1: { required: true },
-      answer2: { required: true },
-      answer3: { required: true }
+      question: { required: true, minlength: 5, maxlength: 50 },
+      answer1: { required: true, minlength: 5, maxlength: 50 },
+      answer2: { required: true, minlength: 5, maxlength: 50 },
+      answer3: { required: true, minlength: 5, maxlength: 50 }
     })
 
     const card = {
@@ -57,9 +56,9 @@ class CardForm extends ValidationComponent {
     }
     //if all the things go well, emmit an add card action
     this.props.addCardToDeck(item).then(() => {
+      DeviceEventEmitter.emit("showToast", "Created a new card!")
       //Go back to last page
       this.props.navigation.goBack()
-      console.log(`New card added to deck`)
     })
   }
 
@@ -105,7 +104,6 @@ class CardForm extends ValidationComponent {
           ))}
           <Button onPress={this.onSubmitCard}>Add card</Button>
         </View>
-        <Toast ref="toast" />
       </View>
     )
   }
