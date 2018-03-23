@@ -15,7 +15,8 @@ class DeckDetails extends React.Component {
     const { deck, navigation } = this.props
     return (
       <View>
-        <Text>deck details page</Text>
+        <Text>{deck.title}</Text>
+        <Text>{deck.questions.length}</Text>
         <View>
           <Button
             onPress={() =>
