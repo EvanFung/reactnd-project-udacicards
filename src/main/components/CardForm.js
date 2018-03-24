@@ -11,12 +11,6 @@ import { Ionicons } from "@expo/vector-icons"
 import Button from "./TouchableButton"
 import ValidationComponent from "react-native-form-validator"
 class CardForm extends ValidationComponent {
-  static navigationOptions = ({ navigation }) => {
-    const { deckId } = navigation.state.params
-    return {
-      title: `Create new card in ${deckId}`
-    }
-  }
   state = {
     question: "",
     answers: ["", "", ""],

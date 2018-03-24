@@ -17,13 +17,7 @@ class DeckQuiz extends React.Component {
     currentCard: null,
     showAnswer: false
   }
-  //override the default navigationOptions.
-  static navigationOptions = ({ navigation }) => {
-    const { params } = navigation.state
-    return {
-      title: `Deck Quiz`
-    }
-  }
+
   //randomly pick up a question from deck.
   getRandomCard = () => {
     const questions = this.props.deck.questions

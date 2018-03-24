@@ -3,13 +3,6 @@ import { connect } from "react-redux"
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
 import Button from "./TouchableButton"
 class DeckDetails extends React.Component {
-  //override the default navigationOptions.
-  static navigationOptions = ({ navigation }) => {
-    const { params } = navigation.state
-    return {
-      title: params ? `${params.deckId} details` : "A nesty details screen"
-    }
-  }
   render() {
     const { deck, navigation } = this.props
     return (
