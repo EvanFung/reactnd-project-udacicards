@@ -28,7 +28,7 @@ import CustomStatusBar from "./components/CustomStatusBar"
 import CardForm from "./components/CardForm"
 import DeckQuiz from "./components/DeckQuiz"
 import Toast, { DURATION } from "react-native-easy-toast"
-
+import { setLocalNotification } from './utils/LocalNotifications';
 const store = init({
   models,
   redux: {
@@ -123,6 +123,7 @@ export default class App extends React.Component {
     this.listener = DeviceEventEmitter.addListener("showToast", text => {
       this.refs.toastWithStyle.show(text,DURATION.LENGTH_LONG)
     })
+    setLocalNotification();
   }
   componentWillUnmount() {
     if (this.listener) {

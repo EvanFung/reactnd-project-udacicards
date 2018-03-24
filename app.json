@@ -6,10 +6,6 @@
     "description":"Build your own decks and test your knowledge on different topics.",
     "slug": "udacicards",
     "version": "1.0",
-    "icon": "https://maxcdn.icons8.com/Color/PNG/512/Sports/triathlon-512.png",
-    "notification": {
-      "icon": "http://www.student-scholarships.com/images/made/img/featured/nav_basketball_45_45.png"
-    },
     "ios": {
       "bundleIdentifier": "org.evanfung.udacicards"
     },

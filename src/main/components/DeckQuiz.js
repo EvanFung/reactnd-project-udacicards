@@ -5,6 +5,10 @@ import { getRandomInt, shuffleArray } from "../utils/utils"
 import Button from "./TouchableButton"
 import QuizResults from "./QuizResults"
 import { red } from "../utils/colors"
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from "../utils/LocalNotifications"
 const NUMBER_QUESTIONS = 10
 class DeckQuiz extends React.Component {
   state = {
@@ -40,6 +44,12 @@ class DeckQuiz extends React.Component {
 
   componentWillMount() {
     this.getRandomCard()
+  }
+  componentWillUpdate() {
+    if (this.state.cardCounter === NUMBER_QUESTIONS) {
+      this.props.navigation.setParams({ showResult: true })
+      clearLocalNotification().then(setLocalNotification)
+    }
   }
 
   onSubmitAnswer(isTrue) {
@@ -79,7 +89,7 @@ class DeckQuiz extends React.Component {
         <QuizResults
           successRate={score / NUMBER_QUESTIONS * 100}
           onBackClick={() => this.props.navigation.goBack()}
-          onReplyClick={() => this.initialQuiz}
+          onReplyClick={this.initialQuiz}
         />
       )
     }
