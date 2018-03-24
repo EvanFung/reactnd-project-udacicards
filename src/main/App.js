@@ -29,6 +29,7 @@ import CustomStatusBar from "./components/CustomStatusBar"
 import CardForm from "./components/CardForm"
 import DeckQuiz from "./components/DeckQuiz"
 import Toast, { DURATION } from "react-native-easy-toast"
+import Tabs from "./navigators/Tabs";
 import { setLocalNotification } from './utils/LocalNotifications';
 const store = init({
   models,
@@ -38,51 +39,6 @@ const store = init({
     middlewares: [thunk]
   }
 })
-const tabsItem = {
-  DeckList: {
-    screen: DeckList,
-    navigationOptions: {
-      tabBarLabel: "DeckList",
-      tabBarIcon: ({ tintColor }) => (
-        <MaterialCommunityIcons name="library" size={30} color={tintColor} />
-      )
-    }
-  },
-  CreateDeck: {
-    screen: DeckForm,
-    navigationOptions: {
-      tabBarLabel: "DeckForm",
-      tabBarIcon: ({ tintColor }) => (
-        <MaterialCommunityIcons
-          name="library-plus"
-          size={30}
-          color={tintColor}
-        />
-      )
-    }
-  }
-}
-
-const tabSettings = {
-  navigationOptions: {
-    header: null
-  },
-  tabBarOptions: {
-    activeTintColor: Platform.OS === "ios" ? purple : white,
-    style: {
-      height: 56,
-      backgroundColor: Platform.OS === "ios" ? white : purple,
-      shadowColor: "rgba(0,0,0,24)",
-      shadowOffset: {
-        width: 0,
-        height: 3
-      },
-      shadowRadius: 6,
-      shadowOpacity: 1
-    }
-  }
-}
-const Tabs = TabNavigator(tabsItem, tabSettings)
 const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,

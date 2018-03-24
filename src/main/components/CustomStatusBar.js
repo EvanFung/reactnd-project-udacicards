@@ -13,7 +13,7 @@ export default function CustomStatusBar() {
 
 const styles = StyleSheet.create({
   statusBarContainer: {
-    backgroundColor: purple,
+    backgroundColor: lightBlue,
     height: Constants.statusBarHeight
   }
 })
