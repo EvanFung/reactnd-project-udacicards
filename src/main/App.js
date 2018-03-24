@@ -120,10 +120,10 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   //set up a showToast listener so that we can globally emmit a toast action
   componentDidMount() {
+    setLocalNotification();
     this.listener = DeviceEventEmitter.addListener("showToast", text => {
       this.refs.toastWithStyle.show(text,DURATION.LENGTH_LONG)
     })
-    setLocalNotification();
   }
   componentWillUnmount() {
     if (this.listener) {

@@ -12,6 +12,7 @@ import {
 } from "react-native"
 import { white } from "../utils/colors";
 import ValidationComponent from "react-native-form-validator"
+import { NavigationActions } from "react-navigation";
 class DeckFrom extends ValidationComponent {
   state = {
     title: ""
@@ -33,7 +34,15 @@ class DeckFrom extends ValidationComponent {
     this.props.addNewDeck(title).then(() => {
       DeviceEventEmitter.emit("showToast", "Created a new deck!")
       this.setState({ title: "" })
-      this.props.navigation.navigate('DeckList')
+      // this.props.navigation.navigate('DeckList')
+      const resetAction = NavigationActions.reset({
+        index: 1,
+        actions:[
+          NavigationActions.navigate({routeName: 'Home'}),
+          NavigationActions.navigate({routeName: 'DeckDetails',params: {deckId: title}})
+        ]
+      })
+      this.props.navigation.dispatch(resetAction)
     })
   }
   render() {
