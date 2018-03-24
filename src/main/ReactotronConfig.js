@@ -7,5 +7,4 @@ export default Reactotron.configure({
 })
   .use(asyncStorage())
   .use(reactotronRedux())
-  // add other devtools here
   .connect()

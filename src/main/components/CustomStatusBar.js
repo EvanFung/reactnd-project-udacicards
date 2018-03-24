@@ -1,7 +1,7 @@
 import React from "react"
 import { Constants } from "expo"
 import { View, StatusBar, StyleSheet } from "react-native"
-import { white } from "../utils/colors"
+import { white, green, purple, palegreen,lightBlue } from "../utils/colors"
 
 export default function CustomStatusBar() {
   return (
@@ -13,7 +13,7 @@ export default function CustomStatusBar() {
 
 const styles = StyleSheet.create({
   statusBarContainer: {
-    backgroundColor: white,
+    backgroundColor: purple,
     height: Constants.statusBarHeight
   }
 })

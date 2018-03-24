@@ -1,4 +1,5 @@
 import React from "react"
+import { Constants } from "expo"
 import {
   StyleSheet,
   Text,
@@ -21,7 +22,7 @@ import {
   MaterialCommunityIcons,
   Foundation
 } from "@expo/vector-icons"
-import { purple, white, green, gray } from "./utils/colors"
+import { purple, white, green, gray,palegreen } from "./utils/colors"
 import DeckForm from "./components/DeckForm"
 import DeckDetails from "./components/DeckDetails"
 import CustomStatusBar from "./components/CustomStatusBar"
@@ -94,7 +95,9 @@ const MainNavigator = StackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: purple
+        backgroundColor: purple,
+        height: Constants.statusBarHeight
+
       }
     }
   },

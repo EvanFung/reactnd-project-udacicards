@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+  Platform
 } from "react-native"
 import { white } from "../utils/colors"
 import DeckListItem from "./DeckListItem"
@@ -21,7 +22,14 @@ class DeckList extends React.Component {
       <View style={styles.container}>
         <FlatList
           data={Object.keys(decks)}
-          renderItem={({ item }) => <DeckListItem deck={decks[item]} navigation={this.props.navigation} />}
+          renderItem={({ item,index }) => (
+            <DeckListItem
+              style={styles.item}
+              deck={decks[item]}
+              navigation={this.props.navigation}
+              index={index}
+            />
+          )}
           keyExtractor={item => item}
         />
       </View>
@@ -43,9 +51,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: white,
     justifyContent: "center",
-    alignItems: "center",
-    marginLeft: 30,
-    marginRight: 30
   }
 })
 export default connect(mapState, mapDispatch)(DeckList)
