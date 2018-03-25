@@ -24,7 +24,6 @@ class DeckFrom extends ValidationComponent {
     console.log(`Adding new deck with ${title}`)
     if (!title) {
       DeviceEventEmitter.emit("showToast", "You need to specify a name for the deck")
-    //   AlertIOS.alert('Enter a value',null); it works when dont using expo.
       return
     }
 
