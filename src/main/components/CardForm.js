@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   DeviceEventEmitter,
   Animated,
-  StyleSheet
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView
 } from "react-native"
 import { connect } from "react-redux"
 import { Ionicons } from "@expo/vector-icons"
@@ -58,8 +60,8 @@ class CardForm extends ValidationComponent {
     })
 
     const fieldNames = ["question", "answer1", "answer2", "answer3"]
-    //loop through the field array.
-    for (var i = 0; i < fieldNames.length; i++) {
+    //loop through the field array to check if empty or not.
+    for (let i = 0; i < fieldNames.length; i++) {
       if (this.isFieldInError(fieldNames[i])) {
         DeviceEventEmitter.emit(
           "showToast",
@@ -96,7 +98,7 @@ class CardForm extends ValidationComponent {
     const { deckId } = navigation.state.params
     const isQuestionFormActive = this.state.activeForm === "question"
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.textContainer}>
           <MaterialCommunityIcons
             name="human-handsup"
@@ -126,7 +128,7 @@ class CardForm extends ValidationComponent {
             </Text>
           </View>
           {this.state.answers.map((item, index) => (
-            <View key={index} style={styles.answerForm}>
+            <KeyboardAvoidingView key={index} style={styles.answerForm}>
               <TextInput
                 style={[styles.textInput, { flexGrow: 1 }]}
                 ref={`answer${index + 1}`}
@@ -150,13 +152,13 @@ class CardForm extends ValidationComponent {
                   }}
                 />
               </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
           ))}
           <Button style={styles.addBtn} onPress={this.onSubmitCard}>
             Add card
           </Button>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
