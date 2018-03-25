@@ -86,12 +86,6 @@ class DeckQuiz extends React.Component {
   componentWillMount() {
     this.getRandomCard()
   }
-  componentWillUpdate() {
-    if (this.state.cardCounter === NUMBER_QUESTIONS) {
-      this.props.navigation.setParams({ showResult: true })
-      clearLocalNotification().then(setLocalNotification)
-    }
-  }
 
   onSubmitAnswer(isTrue) {
     const questions = this.props.deck.questions

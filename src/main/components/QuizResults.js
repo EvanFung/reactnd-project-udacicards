@@ -1,6 +1,7 @@
 import React from "react"
-import { View, Text, TouchableOpacity } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons"
+import { white } from "../utils/colors"
 
 export default function QuizResults({
   successRate,
@@ -25,20 +26,32 @@ export default function QuizResults({
     message = `Wow! You are definitely a master on this.`
   }
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Obtained Score</Text>
       <Text>{successRate}%</Text>
       <Text>{message}</Text>
       <MaterialCommunityIcons name={icon} size={200} />
-      <TouchableOpacity onPress={onReplyClick}>
-        <MaterialCommunityIcons name={"restart"} size={50} />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={onBackClick}>
-        <MaterialCommunityIcons
-          name={"cards"}
-          size={50}
-        />
-      </TouchableOpacity>
+      <View style={styles.btnContainer}>
+        <TouchableOpacity onPress={onReplyClick}>
+          <MaterialCommunityIcons name={"restart"} size={50} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onBackClick}>
+          <MaterialCommunityIcons name={"cards"} size={50} />
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: white
+  },
+  btnContainer: {
+    flexDirection: "row",
+    alignItems: "stretch"
+  }
+})
