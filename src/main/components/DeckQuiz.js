@@ -1,27 +1,61 @@
 import React from "react"
 import { connect } from "react-redux"
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+  TouchableWithoutFeedback
+} from "react-native"
 import { getRandomInt, shuffleArray } from "../utils/utils"
 import Button from "./TouchableButton"
 import QuizResults from "./QuizResults"
-import { red } from "../utils/colors"
+import {
+  red,
+  white,
+  lightBlue,
+  lightGray,
+  gray,
+  paleBlue,
+  green
+} from "../utils/colors"
 import {
   clearLocalNotification,
   setLocalNotification
 } from "../utils/LocalNotifications"
+import { MaterialCommunityIcons } from "@expo/vector-icons"
 const NUMBER_QUESTIONS = 10
 class DeckQuiz extends React.Component {
   state = {
     score: 0,
     cardCounter: 0,
     currentCard: null,
-    showAnswer: false
+    showAnswer: false,
+    animSlide: new Animated.Value(1),
+    animRotation: new Animated.Value(0)
+  }
+
+  //revealAnswer
+  revealAnswer = () => {
+    const flipAnimation = Animated.timing(this.state.animRotation, {
+      duration: 1000,
+      toValue: 1
+    })
+
+    flipAnimation.start(() => {
+      this.setState({
+        showAnswer: true,
+        animRotation: new Animated.Value(0)
+      })
+    })
   }
 
   //randomly pick up a question from deck.
   getRandomCard = () => {
     const questions = this.props.deck.questions
     const randomIndex = getRandomInt(0, questions.length)
+    shuffleArray(questions[randomIndex].answers)
     this.setState({
       currentCard: questions[randomIndex],
       cardCounter: this.state.cardCounter + 1,
@@ -88,23 +122,58 @@ class DeckQuiz extends React.Component {
       )
     }
     return (
-      <View>
-        <Text>
-          Progress: {cardCounter} / {NUMBER_QUESTIONS}
-        </Text>
-        <Text>Current Score: {score}</Text>
-        <TouchableOpacity onPress={this.handleShowAnswer}>
-          <Text>{currentCard.question}</Text>
-        </TouchableOpacity>
-        {currentCard.answers.map((answer, index) => (
-          <Button
-            key={index}
-            onPress={() => this.onSubmitAnswer(answer.isTrue)}
-            style={showAnswer && !answer.isTrue ? { backgroundColor: red } : {}}
+      <View style={styles.container}>
+        <View style={[styles.row]}>
+          <MaterialCommunityIcons
+            name="timer"
+            size={30}
+            style={styles.timerIcon}
+          />
+          <Text>
+            Progress: {cardCounter} / {NUMBER_QUESTIONS}
+          </Text>
+        </View>
+        <Animated.View style={{ flexGrow: 1 }}>
+          <TouchableWithoutFeedback
+            onPress={!showAnswer ? this.revealAnswer : null}
           >
-            {answer.text}
-          </Button>
-        ))}
+            <Animated.View style={[styles.card]}>
+              <MaterialCommunityIcons
+                name="cards"
+                size={150}
+                style={styles.cardIcon}
+              />
+              <View style={{ flexGrow: 1, justifyContent: "center" }}>
+                <Text style={styles.question}>{currentCard.question}</Text>
+              </View>
+              <MaterialCommunityIcons
+                name={!showAnswer ? "eye" : "eye-outline"}
+                size={30}
+              />
+              <Text
+                style={{ color: lightGray, fontSize: 12, flexWrap: "wrap" }}
+              >
+                {!showAnswer
+                  ? "Click card to reveal answer"
+                  : "The answer has been revealed"}
+              </Text>
+            </Animated.View>
+          </TouchableWithoutFeedback>
+        </Animated.View>
+        <View style={{ marginTop: 30 }}>
+          {currentCard.answers.map((answer, index) => (
+            <Button
+              key={index}
+              onPress={() => this.onSubmitAnswer(answer.isTrue)}
+              style={[
+                styles.ansBtn,
+                showAnswer && answer.isTrue ? { backgroundColor: green } : {}
+              ]}
+            >
+              {answer.text}
+            </Button>
+          ))}
+        </View>
       </View>
     )
   }
@@ -115,4 +184,50 @@ function mapState(state, { navigation }) {
     deck: state.decks[deckId]
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 30,
+    backgroundColor: white
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  card: {
+    padding: 20,
+    borderRadius: 5,
+    flexGrow: 1,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: lightBlue
+  },
+  question: {
+    color: white,
+    fontSize: 14,
+    flexWrap: "wrap",
+    textAlign: "center"
+  },
+  timerIcon: {
+    marginRight: 5,
+    color: lightGray
+  },
+  ansBtn: {
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 30,
+    textAlign: "center",
+    color: white,
+    fontSize: 16,
+    backgroundColor: paleBlue,
+    marginTop: 10
+  },
+  cardIcon: {
+    color: lightGray,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30
+  }
+})
 export default connect(mapState)(DeckQuiz)

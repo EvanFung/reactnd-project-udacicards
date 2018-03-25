@@ -142,10 +142,11 @@ class CardForm extends ValidationComponent {
                     [`answer${index + 1}`]: answer
                   })
                 }}
+                returnKeyType="next"
               />
               <TouchableOpacity onPress={() => this.setCorrectAnswer(index)}>
                 <MaterialIcons
-                  size={30}
+                  size={40}
                   name={this.state.correctAnswer === index ? "check" : "close"}
                   style={{
                     color: this.state.correctAnswer === index ? green : red
