@@ -8,28 +8,23 @@ export default function QuizResults({
   onBackClick,
   onReplyClick
 }) {
-  let icon, message
+  let icon
   if (successRate < 40) {
     icon = "emoticon-dead"
-    message = `Oops! It seems as if you need to review more.`
   } else if (successRate < 50) {
     icon = "emoticon-sad"
     message = `Almost there!You can make it next time.`
   } else if (successRate < 70) {
     icon = "emoticon-happy"
-    message = `Hey! You made it, make it better next time.`
   } else if (successRate < 90) {
     icon = "emoticon-excited"
-    message = `Congratulation! You on the way to become a master on this.`
   } else {
     icon = "emoticon-cool"
-    message = `Wow! You are definitely a master on this.`
   }
   return (
     <View style={styles.container}>
       <Text>Hey! Your Score is</Text>
       <Text style={styles.score}>{successRate.toFixed(1)}%</Text>
-      <Text>{message}</Text>
       <MaterialCommunityIcons name={icon} size={200} />
       <View style={styles.btnContainer}>
         <TouchableOpacity onPress={onReplyClick} style={styles.icon}>
