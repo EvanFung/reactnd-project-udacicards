@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Animated,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Dimensions
 } from "react-native"
 import { getRandomInt, shuffleArray } from "../utils/utils"
 import Button from "./TouchableButton"
@@ -33,12 +34,12 @@ class DeckQuiz extends React.Component {
     currentCard: null,
     showAnswer: false,
     animSlide: new Animated.Value(1),
-    animRotation: new Animated.Value(0)
+    animRotationDeg: new Animated.Value(0)
   }
 
   //revealAnswer
   revealAnswer = () => {
-    const flipAnimation = Animated.timing(this.state.animRotation, {
+    const flipAnimation = Animated.timing(this.state.animRotationDeg, {
       duration: 1000,
       toValue: 1
     })
@@ -46,7 +47,7 @@ class DeckQuiz extends React.Component {
     flipAnimation.start(() => {
       this.setState({
         showAnswer: true,
-        animRotation: new Animated.Value(0)
+        animRotationDeg: new Animated.Value(0)
       })
     })
   }
@@ -56,11 +57,23 @@ class DeckQuiz extends React.Component {
     const questions = this.props.deck.questions
     const randomIndex = getRandomInt(0, questions.length)
     shuffleArray(questions[randomIndex].answers)
-    this.setState({
-      currentCard: questions[randomIndex],
-      cardCounter: this.state.cardCounter + 1,
-      showAnswer: false
-    })
+    Animated.timing(this.state.animSlide, { duration: 100, toValue: 0 }).start(
+      () => {
+        this.setState(
+          {
+            showAnswer: false,
+            currentCard: questions[randomIndex],
+            cardCounter: this.state.cardCounter + 1
+          },
+          () => {
+            Animated.timing(this.state.animSlide, {
+              duration: 200,
+              toValue: 1
+            }).start()
+          }
+        )
+      }
+    )
   }
 
   handleShowAnswer = () => {
@@ -121,6 +134,15 @@ class DeckQuiz extends React.Component {
         />
       )
     }
+    const flip = this.state.animRotationDeg.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["0deg", "360deg"]
+    })
+
+    const slide = this.state.animSlide.interpolate({
+      inputRange: [0, 1],
+      outputRange: [Dimensions.get("window").width, 0]
+    })
     return (
       <View style={styles.container}>
         <View style={[styles.row]}>
@@ -133,11 +155,15 @@ class DeckQuiz extends React.Component {
             Progress: {cardCounter} / {NUMBER_QUESTIONS}
           </Text>
         </View>
-        <Animated.View style={{ flexGrow: 1 }}>
+        <Animated.View
+          style={{ flexGrow: 1, transform: [{ translateX: slide }] }}
+        >
           <TouchableWithoutFeedback
             onPress={!showAnswer ? this.revealAnswer : null}
           >
-            <Animated.View style={[styles.card]}>
+            <Animated.View
+              style={[styles.card, { transform: [{ rotateY: flip }] }]}
+            >
               <MaterialCommunityIcons
                 name="cards"
                 size={150}
