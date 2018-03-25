@@ -1,7 +1,7 @@
 import React from "react"
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons"
-import { white } from "../utils/colors"
+import { white, red, green, lightBlue } from "../utils/colors"
 
 export default function QuizResults({
   successRate,
@@ -27,16 +27,27 @@ export default function QuizResults({
   }
   return (
     <View style={styles.container}>
-      <Text>Obtained Score</Text>
-      <Text>{successRate}%</Text>
+      <Text>Hey! Your Score is</Text>
+      <Text style={styles.score}>{successRate.toFixed(1)}%</Text>
       <Text>{message}</Text>
       <MaterialCommunityIcons name={icon} size={200} />
       <View style={styles.btnContainer}>
-        <TouchableOpacity onPress={onReplyClick}>
-          <MaterialCommunityIcons name={"restart"} size={50} />
+        <TouchableOpacity onPress={onReplyClick} style={styles.icon}>
+          <MaterialCommunityIcons
+            name={"replay"}
+            size={50}
+            style={{ color: white }}
+          />
         </TouchableOpacity>
-        <TouchableOpacity onPress={onBackClick}>
-          <MaterialCommunityIcons name={"cards"} size={50} />
+        <TouchableOpacity
+          onPress={onBackClick}
+          style={[styles.icon, { backgroundColor: red }]}
+        >
+          <MaterialCommunityIcons
+            name={"exit-to-app"}
+            size={50}
+            style={{ color: white }}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -52,6 +63,18 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flexDirection: "row",
-    alignItems: "stretch"
-  }
+    alignSelf: "stretch",
+    justifyContent: "space-around"
+  },
+  icon: {
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 15,
+    backgroundColor: green
+  },
+  score: {
+    fontSize: 35,
+    color: lightBlue,
+    fontWeight: "bold"
+  },
 })

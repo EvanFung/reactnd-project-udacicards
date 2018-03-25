@@ -192,7 +192,6 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   title: {
-    fontSize: 18,
     color: lightBlue,
     fontSize: 20,
     flexShrink: 1,
