@@ -96,6 +96,10 @@ class DeckQuiz extends React.Component {
       })
     }
 
+    if(this.state.cardCounter === NUMBER_QUESTIONS) {
+      clearLocalNotification().then(setLocalNotification)
+    }
+
     if (this.state.cardCounter <= NUMBER_QUESTIONS) {
       this.getRandomCard()
       return
