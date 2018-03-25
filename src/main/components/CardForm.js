@@ -4,7 +4,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+  Animated
 } from "react-native"
 import { connect } from "react-redux"
 import { Ionicons } from "@expo/vector-icons"
@@ -17,7 +18,10 @@ class CardForm extends ValidationComponent {
     answer1: "",
     answer2: "",
     answer3: "",
-    correctAnswer: 0
+    correctAnswer: 0,
+    focusFied: null,
+    activeFied: "question",
+    animOpacity: new Animated.Value(1)
   }
 
   setCorrectAnswer = index => {
@@ -44,9 +48,16 @@ class CardForm extends ValidationComponent {
       card: card
     }
 
-    if (!this.isFormValid()) {
-      DeviceEventEmitter.emit("showToast", this.getErrorMessages())
-      return
+    const fieldNames = ["question", "answer1", "answer2", "answer3"]
+    //
+    for (var i = 0; i < fieldNames.length; i++) {
+      if (this.isFieldInError(fieldNames[i])) {
+        DeviceEventEmitter.emit(
+          "showToast",
+          this.getErrorsInField(fieldNames[i])
+        )
+        return
+      }
     }
     //if all the things go well, emmit an add card action
     this.props.addCardToDeck(item).then(() => {
