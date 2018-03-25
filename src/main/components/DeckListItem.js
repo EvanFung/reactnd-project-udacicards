@@ -7,7 +7,7 @@ import {
   Platform
 } from "react-native"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
-import { white, gray, lightGray, green, pink, lightGreen, lightYellow, blue, purple, palegreen } from "../utils/colors"
+import { white, gray, lightGray, green, pink, lightGreen, lightYellow, blue, purple, palegreen, paleBlue } from "../utils/colors"
 import UserAvatar from "react-native-user-avatar"
 export default function DeckListItem({ deck, navigation, index }) {
   let event = index % 2 === 0
@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    marginBottom: 10
+    marginBottom: 10,
+    color: paleBlue,
+    fontWeight: 'bold'
   }
 })

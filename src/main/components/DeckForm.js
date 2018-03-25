@@ -10,9 +10,11 @@ import {
   KeyboardAvoidingView,
   DeviceEventEmitter
 } from "react-native"
-import { white } from "../utils/colors";
+import Button from "./TouchableButton";
+import { white, lightGray, lightBlue, green, paleBlue } from "../utils/colors";
 import ValidationComponent from "react-native-form-validator"
 import { NavigationActions } from "react-navigation";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 class DeckFrom extends ValidationComponent {
   state = {
     title: ""
@@ -47,16 +49,18 @@ class DeckFrom extends ValidationComponent {
   }
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.center}>
-        <Text>What is the title of your new deck?</Text>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <View style={styles.textContainer}>
+          <MaterialCommunityIcons name="human-handsup"  size={80} style={styles.icon} />
+          <Text style={styles.text}>What is the title of your new deck?</Text>
+        </View>
         <TextInput
           placeholder="Deck title"
           onChangeText={title => this.setState({ title })}
           value={this.state.title}
+          style={styles.textInput}
         />
-        <TouchableOpacity onPress={this.onSubmitDeck}>
-          <Text>create deck</Text>
-        </TouchableOpacity>
+        <Button onPress={this.onSubmitDeck} style={styles.createBtn} >CREATE DECK</Button>
       </KeyboardAvoidingView>
     )
   }
@@ -74,13 +78,40 @@ const mapDispatch = dispatch => {
   }
 }
 const styles = StyleSheet.create({
-  center: {
+  container: {
     flex: 1,
-    backgroundColor: white,
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: 30,
-    marginRight: 30
+    padding: 20,
+    backgroundColor: 'white'
+  },
+  textContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  icon:  {
+    color: lightGray,
+  },
+  text: {
+    color: lightBlue,
+    fontSize: 20,
+    flexShrink: 1,
+    marginVertical: 30
+  },
+  textInput: {
+    fontSize: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1.5,
+    borderColor: lightGray
+  },
+  createBtn: {
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 30,
+    textAlign:"center",
+    color: white,
+    fontSize: 16,
+    backgroundColor: paleBlue
   }
 })
 
