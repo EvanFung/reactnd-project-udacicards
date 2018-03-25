@@ -26,7 +26,7 @@ import {
   setLocalNotification
 } from "../utils/LocalNotifications"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
-const NUMBER_QUESTIONS = 3
+const NUMBER_QUESTIONS = 10
 class DeckQuiz extends React.Component {
   state = {
     score: 0,
