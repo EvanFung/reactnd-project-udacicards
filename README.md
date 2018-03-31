@@ -37,7 +37,7 @@ Some useful tips to help you get started:
    yarn start
    ```
 
-####Start the simulator
+#### Start the simulator
 
 First things first: you need to *install* Expo. Head to the app store and install the Expo mobile app for your device:
 
