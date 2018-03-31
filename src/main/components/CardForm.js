@@ -23,6 +23,7 @@ import {
   red,
   paleBlue
 } from "../utils/colors"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 class CardForm extends ValidationComponent {
   state = {
     question: "",
@@ -98,7 +99,7 @@ class CardForm extends ValidationComponent {
     const { deckId } = navigation.state.params
     const isQuestionFormActive = this.state.activeForm === "question"
     return (
-      <ScrollView style={styles.container}>
+      <KeyboardAwareScrollView style={styles.container} extraScrollHeight={50}>
         <View style={styles.textContainer}>
           <MaterialCommunityIcons
             name="human-handsup"
@@ -115,6 +116,9 @@ class CardForm extends ValidationComponent {
           value={this.state.question}
           onChangeText={question => this.setState({ question })}
           placeholder={`Question`}
+          returnKeyType={`next`}
+          onSubmitEditing={() => this.answer1.focus()}
+          blurOnSubmit={false}
         />
         <View style={{ marginTop: 20 }}>
           <View style={styles.textContainer}>
@@ -128,12 +132,24 @@ class CardForm extends ValidationComponent {
             </Text>
           </View>
           {this.state.answers.map((item, index) => (
-            <KeyboardAvoidingView key={index} style={styles.answerForm}>
+            <KeyboardAvoidingView
+              key={index}
+              style={styles.answerForm}
+              behavior="padding"
+              keyboardVerticalOffset={-64}
+            >
               <TextInput
                 style={[styles.textInput, { flexGrow: 1 }]}
-                ref={`answer${index + 1}`}
+                ref={input => {
+                  this[`answer${index + 1}`] = input
+                }}
                 value={this.state.answers[index]}
                 placeholder={`Answer ${index + 1}`}
+                returnKeyType={"next"}
+                onSubmitEditing={() => {
+                  this[`answer${index + 2}`] && this[`answer${index + 2}`].focus()
+                }}
+                blurOnSubmit={false}
                 onChangeText={answer => {
                   const updateAnswers = this.state.answers
                   updateAnswers[index] = answer
@@ -159,7 +175,7 @@ class CardForm extends ValidationComponent {
             Add card
           </Button>
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     )
   }
 }
@@ -218,7 +234,6 @@ const styles = StyleSheet.create({
     color: white,
     fontSize: 16,
     backgroundColor: paleBlue,
-    marginTop: 30
   }
 })
 export default connect(mapState, mapDispatch)(CardForm)
